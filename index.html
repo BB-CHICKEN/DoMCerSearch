@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.35">
+    <style>
+        :root {
+            --c-bg: #fff;
+        }
+
+        html.dark {
+            --c-bg: #22272e;
+        }
+
+        html, body {
+            background-color: var(--c-bg);
+        }
+    </style>
+    <script>
+        const userMode = localStorage.getItem('vuepress-color-scheme');
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+            document.documentElement.classList.toggle('dark', true);
+        }
+    </script>
+    <link rel="icon"
+          href="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/18/4c/ab/184cabcb-bdcd-2ae5-f48d-acc783341025/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x0w.webp">
+    <title>Domcer查询</title>
+    <meta name="description" content="DoMCer查询网站">
+    <link rel="stylesheet" href="assets/style.9b1e0be4.css">
+</head>
+<body>
+<div id="app">
+    <div class="theme-container no-sidebar">
+        <header ref_key="navbar" class="navbar">
+            <div class="toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+                <div class="icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <span><a aria-current="page" href="index.html" class="router-link-active router-link-exact-active"><span
+                    class="site-name">DoMCer 查询工具</span></a></span>
+            <div class="navbar-items-wrapper" style>
+                <nav class="navbar-items can-hide">
+                    <div class="navbar-item">
+                        <a href="https://www.domcer.com"> DoMCer官网 </a>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="navbar-item"><a href="http://api.domcer.com"> 官方API文档</a></div>
+                    </div>
+                    <div class="navbar-item"><a class="external-link" href="https://qm.qq.com/q/p9fnj458Nc"
+                                                rel="noopener noreferrer" target="_blank" aria-label="GitHub"> 作者QQ
+                        <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                   focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path
+                                fill="currentColor"
+                                d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon
+                                fill="currentColor"
+                                points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span
+                                class="external-link-icon-sr-only">open in new window</span></span></a></div>
+                </nav>
+                <div id="docsearch-container"></div>
+            </div>
+        </header>
+        <main class="home">
+            <header class="hero"><img
+                    src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/18/4c/ab/184cabcb-bdcd-2ae5-f48d-acc783341025/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x0w.webp"
+                    alt="go-cqhttp">
+                <h1 id="main-title">DoMCer Search</h1>
+                <p class="description">基于 DoMCer 官方API 原生实现</p>
+                <p class="actions"><a class="external-link action-button secondary"
+                                      href="https://pan.baidu.com/s/1QVC7Bn1edQ87ReLq4lmp7w?pwd=6666" rel="noopener noreferrer"
+                                      target="_blank" aria-label="发行下载"> 项目下载 <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a>
+                    <a href="/Search/" class="action-button primary" aria-label="快速上手🚀">立即使用🚀 </a></p>
+            </header>
+            <div class="features">
+                <div class="feature"><h2>过去</h2>
+                    <p>只能在游戏中慢慢查找</p></div>
+                <div class="feature"><h2>现在</h2>
+                    <p>轻量, 原生, 高并发, 低占用, 跨平台。</p></div>
+                <div class="feature"><h2>未来</h2>
+                    <p>不局限于 OneMode 标准 !</p></div>
+            </div>
+            <div class="theme-default-content custom"></div>
+            <p class="footer">Modify from <a href="https://docs.go-cqhttp.org/" target="_blank">gocqhttp</a> | Modified by
+                <a href="https://qm.qq.com/q/p9fnj458Nc" target="_blank">BB_CHICKEN</a></p>
+        </main>
+    </div>
+</div>
+</body>
+</html>
+<!--
+       　  　▃▆█▇▄▖
+　 　 　 ▟◤▖　　　◥█▎
+   　 ◢◤　 ▐　　　 　▐▉
+　 ▗◤　　　▂　▗▖　　▕█▎
+　◤　▗▅▖◥▄　▀◣　　█▊
+▐　▕▎◥▖◣◤　　　　◢██
+█◣　◥▅█▀　　　　▐██◤
+▐█▙▂　　     　◢██◤
+◥██◣　　　　◢▄◤
+ 　　▀██▅▇▀
+
+
+哲学♂ 114514 别看了哥们，这网站go-cqhttp改的。
+ -->
