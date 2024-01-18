@@ -53,7 +53,10 @@
 
                                 var rank = data.data.rank;
                                 rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('_', " "); // 将_替换为空格
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank=rank.replace(/\s/g, "");
 
                                 var result = "====玩家个人信息===="+"\n";
                                 result += "["+rank+"]" + data.data.realName + "\n";
@@ -146,15 +149,76 @@
             <form action="#" method="post">
 
                 <p class="header">输入</p>
-                <input type="text" name="player" value="输入玩家名称" onfocus="this.value = '';"
+                <input type="text" id="input3" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
 
-                <textarea id="output4" readonly></textarea>
-                <input type="submit" class="bw" value="查询">
-                <ul class="links">
-                    <li class="pass-w3ls"><a href="#">查询失败点我</a></li>
-                </ul>
+                <textarea id="output3" readonly></textarea>
+                <input type="button" class="bw" value="查询" onclick="getResult2()">
+
+                <script>
+
+                    function getResult2() {
+                        var playername = document.getElementById('input3').value;
+                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name='+playername)
+                            .then(response =>response.json())
+                            .then(data =>{
+                                var uuid=data.data.uuid
+
+                                var rank = data.data.rank;
+                                rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank=rank.replace(/\s/g, "");
+
+                                fetch('https://wx.domcer.com:25566/stats/getStats?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid='+uuid+'&statsName=BedWars')
+                                    .then(response => response.json())
+                                    .then(data =>{
+                                        var wins=data.data.wins
+                                        var speedwins2=data.data.speedwins2
+                                        var speedwins4=data.data.speedwins4
+                                        var loses=data.data.loses
+                                        var speedloses2=data.data.speedloses2
+                                        var speedloses4=data.data.speedloses4
+                                        var kills=data.data.kills
+                                        var speedkills2=data.data.speedkills2
+                                        var speedkills4=data.data.speedkills4
+                                        var deaths=data.data.deaths
+                                        var speeddeaths2=data.data.speeddeaths2
+                                        var speeddeaths4=data.data.speeddeaths4
+                                        var finalKills=data.data.finalKills
+                                        var speedfinalKills2=data.data.speedfinalKills2
+                                        var speedfinalKills4=data.data.speedfinalKills4
+                                        var finalDeaths=data.data.finalDeaths
+                                        var speedfinalDeaths2=data.data.speedfinalDeaths2
+                                        var speedfinalDeaths4=data.data.speedfinalDeaths4
+                                        var bedDestroyed=data.data.bedDestroyed
+                                        var speedbedDestroyed2=data.data.speedbedDestroyed2
+                                        var speedbedDestroyed4=data.data.speedbedDestroyed4
+                                        var bedBeenDestroyed=data.data.bedBeenDestroyed
+                                        var speedbedBeenDestroyed2=data.data.speedbedBeenDestroyed2
+                                        var speedbedBeenDestroyed4=data.data.speedbedBeenDestroyed4
+                                        var wins=parseFloat(wins+speedwins2+speedwins4);loses=parseFloat(loses+speedloses4+speedloses4)
+                                        var WL=parseFloat(wins) / parseFloat(loses);WL=WL.toFixed(1);WL=parseFloat(WL)
+                                        var kills=parseFloat(kills+speedkills2+speedkills4);deaths=parseFloat(deaths+speeddeaths2+speeddeaths4)
+                                        var KD=parseFloat(kills) / parseFloat(deaths);KD=KD.toFixed(1);KD=parseFloat(KD)
+
+                                        var
+                                        result = "====BW个人战绩===="+"\n";
+                                        result += '['+rank+']' +playername+"\n";
+                                        result += '等级：'+data.data.level +' 硬币：'+data.data.coins+ "\n";
+                                        result += '胜/败：' + wins +'/'+ loses+"\n";
+                                        result += 'W/L：'+WL+"\n";
+                                        result += '击杀/死亡'+ kills+'/'+deaths+"\n";
+                                        result += "K/D:" + KD +"\n";
+
+                                        document.getElementById('output3').value = result;
+
+                                    })
+                            })
+                    }
+                </script>
             </form>
         </div>
     </div><!-- tab-content -->
@@ -167,7 +231,7 @@
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
 
-                <textarea id="output3" readonly></textarea>
+                <textarea id="output4" readonly></textarea>
                 <input type="submit" class="dl" value="查询">
                 <ul class="links">
                     <li class="pass-w3ls"><a href="#">查询失败点我</a></li>
