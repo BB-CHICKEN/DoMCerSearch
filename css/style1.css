@@ -46,23 +46,22 @@
 }
 
 :root {
-    --c-brand: #3eaf7c;
-    --c-brand-light: #4abf8a;
-    --c-bg: #ffffff;
-    --c-bg-light: #f3f4f5;
-    --c-bg-lighter: #eeeeee;
+    --c-brand: #3aa675;
+    --c-brand-light: #349469;
+    --c-bg: #22272e;
+    --c-bg-light: #22272e;
+    --c-bg-lighter: #22272e;
     --c-bg-navbar: var(--c-bg);
     --c-bg-sidebar: var(--c-bg);
     --c-bg-arrow: #cccccc;
-    --c-text: #2c3e50;
+    --c-text: #adbac7;
     --c-text-accent: var(--c-brand);
-    --c-text-light: #3a5169;
-    --c-text-lighter: #4e6e8e;
-    --c-text-lightest: #6a8bad;
-    --c-text-quote: #999999;
-    --c-border: #eaecef;
-    --c-border-dark: #dfe2e5;
-    --c-tip: #42b983;
+    --c-text-light: #96a7b7;
+    --c-text-lighter: #8b9eb0;
+    --c-text-lightest: #8094a8;
+    --c-border: #3e4c5a;
+    --c-border-dark: #34404c;
+    --c-tip: #318a62;
     --c-tip-bg: var(--c-bg-light);
     --c-tip-title: var(--c-text);
     --c-tip-text: var(--c-text);
@@ -425,7 +424,7 @@ code[class*=language-], pre[class*=language-] {
     word-wrap: normal;
     line-height: 1.5;
     -moz-tab-size: 4;
-    -o-tab-size: 4;
+    --o-tab-size: 4;
     tab-size: 4;
     -webkit-hyphens: none;
     -ms-hyphens: none;
@@ -1790,8 +1789,8 @@ a.sidebar-item:hover {
 }
 
 :root {
-    --c-brand: #A24E82;
-    --c-brand-light: #B95995
+    --c-brand: #3AA675FF;
+    --c-brand-light: #3AA675FF
 }
 
 /*!@docsearch/css 3.0.0-alpha.42 | MIT License | © Algolia, Inc. and contributors | https://docsearch.algolia.com*/
@@ -2553,8 +2552,8 @@ svg.DocSearch-Hit-Select-Icon {
     width: 2rem;
     height: 1.2rem;
     background-color: var(--back-to-top-color);
-    -webkit-mask: url(/assets/back-to-top.8efcbe56.svg) no-repeat;
-    mask: url(/assets/back-to-top.8efcbe56.svg) no-repeat;
+    -webkit-mask: url(back-to-top.8efcbe56.svg) no-repeat;
+    mask: url(back-to-top.8efcbe56.svg) no-repeat;
     z-index: var(--back-to-top-z-index)
 }
 

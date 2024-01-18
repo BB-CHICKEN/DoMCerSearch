@@ -34,17 +34,40 @@
             <form action="#" method="post">
 
                 <p class="header">输入</p>
-                <input type="text" name="player" value="输入玩家名称" onfocus="this.value = '';"
+                <input type="text" id="input" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
 
                 <textarea id="output" readonly></textarea>
 
-                <input type="submit" class="sign-in" value="查询">
+                <input type="button" class="sign-in" value="查询" onclick="getResult()">
 
-                <ul class="links">
-                    <li class="pass-w3ls"><a href="#">查询失败点我</a></li>
-                </ul>
+                <script>
+                    function getResult() {
+                        var inputValue = document.getElementById('input').value;
+                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name=' + inputValue)
+                            .then(response => response.json())
+                            .then(data => {
+                                var firstLoginDate = new Date(data.data.firstLogin);
+                                var formattedFirstLogin = `${firstLoginDate.getFullYear()}.${(firstLoginDate.getMonth() + 1).toString().padStart(2, '0')}.${firstLoginDate.getDate().toString().padStart(2, '0')} ${firstLoginDate.getHours().toString().padStart(2, '0')}:${firstLoginDate.getMinutes().toString().padStart(2, '0')}`;
+
+                                var rank = data.data.rank;
+                                rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+
+                                var result = "=====玩家个人信息====="+"\n";
+                                result += "["+rank+"]" + data.data.realName + "\n";
+                                result += "等级：" + data.data.networkLevel + "\n";
+                                result += "注册时间：" + formattedFirstLogin + "\n";
+                                result += "街机硬币：" + data.data.networkCoins;
+
+                                document.getElementById('output').value = result;
+                            })
+                            .catch(err => {
+                                document.getElementById('output').value = "\n"+'︎❗查询时出现错误❗'+"\n"+'请检查玩家名称与大小写';
+                            });
+                    }
+                </script>
             </form>
         </div>
     </div>
