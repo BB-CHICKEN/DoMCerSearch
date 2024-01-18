@@ -33,7 +33,7 @@
         <div id="signin-agile">
             <form action="#" method="post">
 
-                <p class="header">输入</p>
+                <p class="header">输入--请勿直接使用回车查询</p>
                 <input type="text" id="input" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
@@ -55,7 +55,7 @@
                                 rank = rank.replace('_', " "); // 将_替换为空格
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
 
-                                var result = "=====玩家个人信息====="+"\n";
+                                var result = "====玩家个人信息===="+"\n";
                                 result += "["+rank+"]" + data.data.realName + "\n";
                                 result += "等级：" + data.data.networkLevel + "\n";
                                 result += "注册时间：" + formattedFirstLogin + "\n";
@@ -75,16 +75,68 @@
         <div id="signup-agile">
             <form action="#" method="post">
 
-                <p class="header">输入</p>
-                <input type="text" name="player" value="输入玩家名称" onfocus="this.value = '';"
+                <p class="header">输入--请勿直接使用回车查询</p>
+                <input type="text" id="input2" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
 
                 <textarea id="output2" readonly></textarea>
-                <input type="submit" class="signup-agile" value="查询">
-                <ul class="links">
-                    <li class="pass-w3ls"><a href="#">查询失败点我</a></li>
-                </ul>
+                <input type="button" class="signup-agile" value="查询" onclick="getResult1()">
+
+                <script>
+                    function getResult1() {
+                        var playername = document.getElementById('input2').value;
+                        fetch('https://wx.domcer.com:25566/player/getUuidByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name=' + playername)
+                            .then(response => response.json())
+                            .then(data => {
+                                uuid=data.data
+                                fetch('https://wx.domcer.com:25566/guild/findByUuid?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + uuid)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        data=data.data
+                                        fetch('https://wx.domcer.com:25566/guild/getById?key=0949a0d0-bc98-4535-9f5e-086835123f75&id=' + data)
+                                            .then(response => response.json())
+                                            .then(data =>{
+                                                var masteruuid=data.data.master
+
+                                                var firstLoginDate = new Date(data.data.created	);
+                                                var Guildcreated = `${firstLoginDate.getFullYear()}.${(firstLoginDate.getMonth() + 1).toString().padStart(2, '0')}.${firstLoginDate.getDate().toString().padStart(2, '0')} ${firstLoginDate.getHours().toString().padStart(2, '0')}:${firstLoginDate.getMinutes().toString().padStart(2, '0')}`;
+
+                                                var GuildName = data.data.name + "["+data.data.tag+"]";
+                                                Guildleave = "公会等级：" + data.data.level;
+                                                GuildDescription = "公会描述：" + data.data.description;
+                                                Guildtime = "创建时间：" + Guildcreated;
+
+
+                                                fetch('https://wx.domcer.com:25566/player/getByUuid?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + masteruuid)
+                                                    .then(response => response.json())
+                                                    .then(data =>{
+                                                        var rank = data.data.rank;
+                                                        rank = rank.replace('_', " "); // 将_替换为空格
+                                                        rank = rank.replace('_', " "); // 将_替换为空格
+                                                        rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                                        rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                                        rank=rank.replace(/\s/g, "");
+
+
+                                                        result = "====公会信息===="+"\n";
+                                                        result +=  GuildName +"\n";
+                                                        result +=  Guildleave + "\n";
+                                                        result +=  GuildDescription + "\n";
+                                                        result +=  Guildtime+ "\n";
+                                                        result += "会长" + "["+rank+"]"+data.data.realName +"\n";
+
+                                                        document.getElementById('output2').value = result;
+                                                    })
+                                            })
+                                            .catch(err => {
+                                                document.getElementById('output2').value = "\n"+'︎❗查询时出现错误❗'+"\n"+'请检查玩家名称与大小写'+"\n"+"或该玩家没加入公会";
+                                            });
+                                    })
+                            })
+                    }
+                </script>
+
             </form>
         </div>
     </div>
