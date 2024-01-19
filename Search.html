@@ -105,11 +105,22 @@
                                                 var firstLoginDate = new Date(data.data.created	);
                                                 var Guildcreated = `${firstLoginDate.getFullYear()}.${(firstLoginDate.getMonth() + 1).toString().padStart(2, '0')}.${firstLoginDate.getDate().toString().padStart(2, '0')} ${firstLoginDate.getHours().toString().padStart(2, '0')}:${firstLoginDate.getMinutes().toString().padStart(2, '0')}`;
 
+                                                var Guildgame = data.data.games;
+                                                Guildgame=Guildgame.toString();
+                                                Guildgame=Guildgame.replace('MURDERMYSTERY','密室杀手');
+                                                Guildgame=Guildgame.replace('MEGAWALLS','超级战墙');
+                                                Guildgame=Guildgame.replace('BEDWARS','起床战争');
+                                                Guildgame=Guildgame.replace('BRIDGE','搭路练习');
+                                                Guildgame=Guildgame.replace('YINJIANGAME','阴间游戏');
+                                                Guildgame=Guildgame.replace('BUILDBATTLE','建筑大师');
+                                                Guildgame=Guildgame.replace('GUESSDRAW','你画我猜');
+                                                Guildgame=Guildgame.replace('TNTRUN','TNT跑酷');
+
+
                                                 var GuildName = data.data.name + "["+data.data.tag+"]";
                                                 Guildleave = "公会等级：" + data.data.level;
-                                                GuildDescription = "公会描述：" + data.data.description;
                                                 Guildtime = "创建时间：" + Guildcreated;
-
+                                                Guildgames = "主打游戏：" + Guildgame;
 
                                                 fetch('https://wx.domcer.com:25566/player/getByUuid?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + masteruuid)
                                                     .then(response => response.json())
@@ -125,7 +136,7 @@
                                                         result = "====公会信息===="+"\n";
                                                         result +=  GuildName +"\n";
                                                         result +=  Guildleave + "\n";
-                                                        result +=  GuildDescription + "\n";
+                                                        result +=  Guildgames + "\n";
                                                         result +=  Guildtime+ "\n";
                                                         result += "会长" + "["+rank+"]"+data.data.realName +"\n";
 
@@ -148,7 +159,7 @@
         <div id="bw">
             <form action="#" method="post">
 
-                <p class="header">输入</p>
+                <p class="header">输入--请勿直接使用回车查询</p>
                 <input type="text" id="input3" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
@@ -157,7 +168,6 @@
                 <input type="button" class="bw" value="查询" onclick="getResult2()">
 
                 <script>
-
                     function getResult2() {
                         var playername = document.getElementById('input3').value;
                         fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name='+playername)
@@ -203,6 +213,9 @@
                                         var WL=parseFloat(wins) / parseFloat(loses);WL=WL.toFixed(1);WL=parseFloat(WL)
                                         var kills=parseFloat(kills+speedkills2+speedkills4);deaths=parseFloat(deaths+speeddeaths2+speeddeaths4)
                                         var KD=parseFloat(kills) / parseFloat(deaths);KD=KD.toFixed(1);KD=parseFloat(KD)
+                                        var finalKills=parseFloat(finalKills+speedfinalKills2+speedfinalKills4);finalDeaths=parseFloat(finalDeaths+speedfinalDeaths2+speedfinalDeaths4)
+                                        var FKDR=parseFloat(finalKills) / parseFloat(finalDeaths);FKDR=FKDR.toFixed(1);FKDR=parseFloat(FKDR)
+                                        var bedDestroyed=parseFloat(bedDestroyed+speedbedDestroyed2+speedbedDestroyed4);bedBeenDestroyed=parseFloat(bedBeenDestroyed+speedbedBeenDestroyed2+speedbedDestroyed4)
 
                                         var
                                         result = "====BW个人战绩===="+"\n";
@@ -211,11 +224,17 @@
                                         result += '胜/败：' + wins +'/'+ loses+"\n";
                                         result += 'W/L：'+WL+"\n";
                                         result += '击杀/死亡'+ kills+'/'+deaths+"\n";
-                                        result += "K/D:" + KD +"\n";
+                                        result += "K/D：" + KD +"\n";
+                                        result += "终杀/终死："+ finalKills+ "/" +finalDeaths+"\n";
+                                        result += "FKDR："+FKDR+"\n";
+                                        result += "拆/被拆床："+bedDestroyed+"/"+bedBeenDestroyed+"\n";
 
                                         document.getElementById('output3').value = result;
-
                                     })
+
+                            })
+                            .catch(err => {
+                                document.getElementById('output3').value = "\n" + '︎❗查询时出现错误❗' + "\n" + '请检查玩家名称与大小写';
                             })
                     }
                 </script>
@@ -226,16 +245,43 @@
         <div id="dl">
             <form action="#" method="post">
 
-                <p class="header">输入</p>
-                <input type="text" name="player" value="输入玩家名称" onfocus="this.value = '';"
+                <p class="header">输入--请勿直接使用回车查询</p>
+                <input type="text" id="input4" value="输入玩家名称" onfocus="this.value = '';"
                        onblur="if (this.value == '') {this.value = '输入玩家名称';}">
                 <p class="header">输出</p>
 
                 <textarea id="output4" readonly></textarea>
-                <input type="submit" class="dl" value="查询">
-                <ul class="links">
-                    <li class="pass-w3ls"><a href="#">查询失败点我</a></li>
-                </ul>
+                <input type="button" class="dl" value="查询" onclick="getResult3()">
+
+                <script>
+                    function getResult3() {
+                        var playername = document.getElementById('input4').value;
+                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name='+playername)
+                            .then(response =>response.json())
+                            .then(data =>{
+                                var uuid=data.data.uuid
+
+                                var rank = data.data.rank;
+                                rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('_', " "); // 将_替换为空格
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
+                                rank=rank.replace(/\s/g, "");
+
+                                fetch('https://wx.domcer.com:25566/stats/getStats?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid='+uuid+'&statsName=Bridge')
+                                    .then(response => response.json())
+                                    .then(data =>{
+
+                                        var result = "====搭路练习信息===="+"\n";
+                                        result += '['+rank+']' +playername+"\n";
+                                        result += '等级：'+data.data.level+' ['+data.data.exp+'/500XP]'+"\n";
+                                        result += '硬币：'+data.data.coins+"\n";
+
+                                        document.getElementById('output4').value = result;
+                                    })
+                            })
+                    }
+                </script>
             </form>
         </div>
 
@@ -247,3 +293,18 @@
 <!-- /js files -->
 </body>
 </html>
+<!--
+       　  　▃▆█▇▄▖
+　 　 　 ▟◤▖　　　◥█▎
+   　 ◢◤　 ▐　　　 　▐▉
+　 ▗◤　　　▂　▗▖　　▕█▎
+　◤　▗▅▖◥▄　▀◣　　█▊
+▐　▕▎◥▖◣◤　　　　◢██
+█◣　◥▅█▀　　　　▐██◤
+▐█▙▂　　     　◢██◤
+◥██◣　　　　◢▄◤
+ 　　▀██▅▇▀
+
+
+哲学♂ 114514             HTML by：我是一只bb鸡
+ -->
