@@ -56,10 +56,10 @@
                                 rank = rank.replace('_', " "); // 将_替换为空格
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
-                                rank=rank.replace(/\s/g, "");
+                                rank = rank.replace(/\s/g, "");
 
-                                var result = "====玩家个人信息===="+"\n";
-                                result += "["+rank+"]" + data.data.realName + "\n";
+                                var result = "====玩家个人信息====" + "\n";
+                                result += "[" + rank + "]" + data.data.realName + "\n";
                                 result += "等级：" + data.data.networkLevel + "\n";
                                 result += "注册时间：" + formattedFirstLogin + "\n";
                                 result += "街机硬币：" + data.data.networkCoins;
@@ -67,7 +67,7 @@
                                 document.getElementById('output').value = result;
                             })
                             .catch(err => {
-                                document.getElementById('output').value = "\n"+'︎❗查询时出现错误❗'+"\n"+'请检查玩家名称与大小写';
+                                document.getElementById('output').value = "\n" + '︎❗查询时出现错误❗' + "\n" + '请检查玩家名称与大小写';
                             });
                     }
                 </script>
@@ -92,59 +92,59 @@
                         fetch('https://wx.domcer.com:25566/player/getUuidByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name=' + playername)
                             .then(response => response.json())
                             .then(data => {
-                                uuid=data.data
+                                uuid = data.data
                                 fetch('https://wx.domcer.com:25566/guild/findByUuid?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + uuid)
                                     .then(response => response.json())
                                     .then(data => {
-                                        data=data.data
+                                        data = data.data
                                         fetch('https://wx.domcer.com:25566/guild/getById?key=0949a0d0-bc98-4535-9f5e-086835123f75&id=' + data)
                                             .then(response => response.json())
-                                            .then(data =>{
-                                                var masteruuid=data.data.master
+                                            .then(data => {
+                                                var masteruuid = data.data.master
 
-                                                var firstLoginDate = new Date(data.data.created	);
+                                                var firstLoginDate = new Date(data.data.created);
                                                 var Guildcreated = `${firstLoginDate.getFullYear()}.${(firstLoginDate.getMonth() + 1).toString().padStart(2, '0')}.${firstLoginDate.getDate().toString().padStart(2, '0')} ${firstLoginDate.getHours().toString().padStart(2, '0')}:${firstLoginDate.getMinutes().toString().padStart(2, '0')}`;
 
                                                 var Guildgame = data.data.games;
-                                                Guildgame=Guildgame.toString();
-                                                Guildgame=Guildgame.replace('MURDERMYSTERY','密室杀手');
-                                                Guildgame=Guildgame.replace('MEGAWALLS','超级战墙');
-                                                Guildgame=Guildgame.replace('BEDWARS','起床战争');
-                                                Guildgame=Guildgame.replace('BRIDGE','搭路练习');
-                                                Guildgame=Guildgame.replace('YINJIANGAME','阴间游戏');
-                                                Guildgame=Guildgame.replace('BUILDBATTLE','建筑大师');
-                                                Guildgame=Guildgame.replace('GUESSDRAW','你画我猜');
-                                                Guildgame=Guildgame.replace('TNTRUN','TNT跑酷');
+                                                Guildgame = Guildgame.toString();
+                                                Guildgame = Guildgame.replace('MURDERMYSTERY', '密室杀手');
+                                                Guildgame = Guildgame.replace('MEGAWALLS', '超级战墙');
+                                                Guildgame = Guildgame.replace('BEDWARS', '起床战争');
+                                                Guildgame = Guildgame.replace('BRIDGE', '搭路练习');
+                                                Guildgame = Guildgame.replace('YINJIANGAME', '阴间游戏');
+                                                Guildgame = Guildgame.replace('BUILDBATTLE', '建筑大师');
+                                                Guildgame = Guildgame.replace('GUESSDRAW', '你画我猜');
+                                                Guildgame = Guildgame.replace('TNTRUN', 'TNT跑酷');
 
 
-                                                var GuildName = data.data.name + "["+data.data.tag+"]";
+                                                var GuildName = data.data.name + "[" + data.data.tag + "]";
                                                 Guildleave = "公会等级：" + data.data.level;
                                                 Guildtime = "创建时间：" + Guildcreated;
                                                 Guildgames = "主打游戏：" + Guildgame;
 
                                                 fetch('https://wx.domcer.com:25566/player/getByUuid?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + masteruuid)
                                                     .then(response => response.json())
-                                                    .then(data =>{
+                                                    .then(data => {
                                                         var rank = data.data.rank;
                                                         rank = rank.replace('_', " "); // 将_替换为空格
                                                         rank = rank.replace('_', " "); // 将_替换为空格
                                                         rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
                                                         rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
-                                                        rank=rank.replace(/\s/g, "");
+                                                        rank = rank.replace(/\s/g, "");
 
 
-                                                        result = "====公会信息===="+"\n";
-                                                        result +=  GuildName +"\n";
-                                                        result +=  Guildleave + "\n";
-                                                        result +=  Guildgames + "\n";
-                                                        result +=  Guildtime+ "\n";
-                                                        result += "会长" + "["+rank+"]"+data.data.realName +"\n";
+                                                        result = "====公会信息====" + "\n";
+                                                        result += GuildName + "\n";
+                                                        result += Guildleave + "\n";
+                                                        result += Guildgames + "\n";
+                                                        result += Guildtime + "\n";
+                                                        result += "会长" + "[" + rank + "]" + data.data.realName + "\n";
 
                                                         document.getElementById('output2').value = result;
                                                     })
                                             })
                                             .catch(err => {
-                                                document.getElementById('output2').value = "\n"+'︎❗查询时出现错误❗'+"\n"+'请检查玩家名称与大小写'+"\n"+"或该玩家没加入公会";
+                                                document.getElementById('output2').value = "\n" + '︎❗查询时出现错误❗' + "\n" + '请检查玩家名称与大小写' + "\n" + "或该玩家没加入公会";
                                             });
                                     })
                             })
@@ -170,64 +170,74 @@
                 <script>
                     function getResult2() {
                         var playername = document.getElementById('input3').value;
-                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name='+playername)
-                            .then(response =>response.json())
-                            .then(data =>{
-                                var uuid=data.data.uuid
+                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name=' + playername)
+                            .then(response => response.json())
+                            .then(data => {
+                                var uuid = data.data.uuid
 
                                 var rank = data.data.rank;
                                 rank = rank.replace('_', " "); // 将_替换为空格
                                 rank = rank.replace('_', " "); // 将_替换为空格
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
                                 rank = rank.replace('PLUS', "+"); // 将PLUS替换为+
-                                rank=rank.replace(/\s/g, "");
+                                rank = rank.replace(/\s/g, "");
 
-                                fetch('https://wx.domcer.com:25566/stats/getStats?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid='+uuid+'&statsName=BedWars')
+                                fetch('https://wx.domcer.com:25566/stats/getStats?key=0949a0d0-bc98-4535-9f5e-086835123f75&uuid=' + uuid + '&statsName=BedWars')
                                     .then(response => response.json())
-                                    .then(data =>{
-                                        var wins=data.data.wins
-                                        var speedwins2=data.data.speedwins2
-                                        var speedwins4=data.data.speedwins4
-                                        var loses=data.data.loses
-                                        var speedloses2=data.data.speedloses2
-                                        var speedloses4=data.data.speedloses4
-                                        var kills=data.data.kills
-                                        var speedkills2=data.data.speedkills2
-                                        var speedkills4=data.data.speedkills4
-                                        var deaths=data.data.deaths
-                                        var speeddeaths2=data.data.speeddeaths2
-                                        var speeddeaths4=data.data.speeddeaths4
-                                        var finalKills=data.data.finalKills
-                                        var speedfinalKills2=data.data.speedfinalKills2
-                                        var speedfinalKills4=data.data.speedfinalKills4
-                                        var finalDeaths=data.data.finalDeaths
-                                        var speedfinalDeaths2=data.data.speedfinalDeaths2
-                                        var speedfinalDeaths4=data.data.speedfinalDeaths4
-                                        var bedDestroyed=data.data.bedDestroyed
-                                        var speedbedDestroyed2=data.data.speedbedDestroyed2
-                                        var speedbedDestroyed4=data.data.speedbedDestroyed4
-                                        var bedBeenDestroyed=data.data.bedBeenDestroyed
-                                        var speedbedBeenDestroyed2=data.data.speedbedBeenDestroyed2
-                                        var speedbedBeenDestroyed4=data.data.speedbedBeenDestroyed4
-                                        var wins=parseFloat(wins+speedwins2+speedwins4);loses=parseFloat(loses+speedloses4+speedloses4)
-                                        var WL=parseFloat(wins) / parseFloat(loses);WL=WL.toFixed(1);WL=parseFloat(WL)
-                                        var kills=parseFloat(kills+speedkills2+speedkills4);deaths=parseFloat(deaths+speeddeaths2+speeddeaths4)
-                                        var KD=parseFloat(kills) / parseFloat(deaths);KD=KD.toFixed(1);KD=parseFloat(KD)
-                                        var finalKills=parseFloat(finalKills+speedfinalKills2+speedfinalKills4);finalDeaths=parseFloat(finalDeaths+speedfinalDeaths2+speedfinalDeaths4)
-                                        var FKDR=parseFloat(finalKills) / parseFloat(finalDeaths);FKDR=FKDR.toFixed(1);FKDR=parseFloat(FKDR)
-                                        var bedDestroyed=parseFloat(bedDestroyed+speedbedDestroyed2+speedbedDestroyed4);bedBeenDestroyed=parseFloat(bedBeenDestroyed+speedbedBeenDestroyed2+speedbedDestroyed4)
+                                    .then(data => {
+                                        var wins = data.data.wins
+                                        var speedwins2 = data.data.speedwins2
+                                        var speedwins4 = data.data.speedwins4
+                                        var loses = data.data.loses
+                                        var speedloses2 = data.data.speedloses2
+                                        var speedloses4 = data.data.speedloses4
+                                        var kills = data.data.kills
+                                        var speedkills2 = data.data.speedkills2
+                                        var speedkills4 = data.data.speedkills4
+                                        var deaths = data.data.deaths
+                                        var speeddeaths2 = data.data.speeddeaths2
+                                        var speeddeaths4 = data.data.speeddeaths4
+                                        var finalKills = data.data.finalKills
+                                        var speedfinalKills2 = data.data.speedfinalKills2
+                                        var speedfinalKills4 = data.data.speedfinalKills4
+                                        var finalDeaths = data.data.finalDeaths
+                                        var speedfinalDeaths2 = data.data.speedfinalDeaths2
+                                        var speedfinalDeaths4 = data.data.speedfinalDeaths4
+                                        var bedDestroyed = data.data.bedDestroyed
+                                        var speedbedDestroyed2 = data.data.speedbedDestroyed2
+                                        var speedbedDestroyed4 = data.data.speedbedDestroyed4
+                                        var bedBeenDestroyed = data.data.bedBeenDestroyed
+                                        var speedbedBeenDestroyed2 = data.data.speedbedBeenDestroyed2
+                                        var speedbedBeenDestroyed4 = data.data.speedbedBeenDestroyed4
+                                        var wins = parseFloat(wins + speedwins2 + speedwins4);
+                                        loses = parseFloat(loses + speedloses4 + speedloses4)
+                                        var WL = parseFloat(wins) / parseFloat(loses);
+                                        WL = WL.toFixed(1);
+                                        WL = parseFloat(WL)
+                                        var kills = parseFloat(kills + speedkills2 + speedkills4);
+                                        deaths = parseFloat(deaths + speeddeaths2 + speeddeaths4)
+                                        var KD = parseFloat(kills) / parseFloat(deaths);
+                                        KD = KD.toFixed(1);
+                                        KD = parseFloat(KD)
+                                        var finalKills = parseFloat(finalKills + speedfinalKills2 + speedfinalKills4);
+                                        finalDeaths = parseFloat(finalDeaths + speedfinalDeaths2 + speedfinalDeaths4)
+                                        var FKDR = parseFloat(finalKills) / parseFloat(finalDeaths);
+                                        FKDR = FKDR.toFixed(1);
+                                        FKDR = parseFloat(FKDR)
+                                        var bedDestroyed = parseFloat(bedDestroyed + speedbedDestroyed2 + speedbedDestroyed4);
+                                        bedBeenDestroyed = parseFloat(bedBeenDestroyed + speedbedBeenDestroyed2 + speedbedDestroyed4)
 
                                         var
-                                        result = "====BW个人战绩===="+"\n";
-                                        result += '['+rank+']' +playername+"\n";
-                                        result += '等级：'+data.data.level +' 硬币：'+data.data.coins+ "\n";
-                                        result += '胜/败：' + wins +'/'+ loses+"\n";
-                                        result += 'W/L：'+WL+"\n";
-                                        result += '击杀/死亡'+ kills+'/'+deaths+"\n";
-                                        result += "K/D：" + KD +"\n";
-                                        result += "终杀/终死："+ finalKills+ "/" +finalDeaths+"\n";
-                                        result += "FKDR："+FKDR+"\n";
-                                        result += "拆/被拆床："+bedDestroyed+"/"+bedBeenDestroyed+"\n";
+                                            result = "====BW个人战绩====" + "\n";
+                                        result += '[' + rank + ']' + playername + "\n";
+                                        result += '等级：' + data.data.level + ' 硬币：' + data.data.coins + "\n";
+                                        result += '胜/败：' + wins + '/' + loses + "\n";
+                                        result += 'W/L：' + WL + "\n";
+                                        result += '击杀/死亡' + kills + '/' + deaths + "\n";
+                                        result += "K/D：" + KD + "\n";
+                                        result += "终杀/终死：" + finalKills + "/" + finalDeaths + "\n";
+                                        result += "FKDR：" + FKDR + "\n";
+                                        result += "拆/被拆床：" + bedDestroyed + "/" + bedBeenDestroyed + "\n";
 
                                         document.getElementById('output3').value = result;
                                     })
@@ -256,8 +266,8 @@
                 <script>
                     function getResult3() {
                         var playername = document.getElementById('input4').value;
-                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name='+playername)
-                            .then(response =>response.json())
+                        fetch('https://wx.domcer.com:25566/player/getByName?key=0949a0d0-bc98-4535-9f5e-086835123f75&name=' + playername)
+                            .then(response => response.json())
                             .then(data => {
                                 var uuid = data.data.uuid
 
@@ -297,7 +307,7 @@
 <!-- /js files -->
 </body>
 </html>
-<!--
+<!-- 哥们别看我的屎山代码了o(╥﹏╥)o
        　  　▃▆█▇▄▖
 　 　 　 ▟◤▖　　　◥█▎
    　 ◢◤　 ▐　　　 　▐▉
